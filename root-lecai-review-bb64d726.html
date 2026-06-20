@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>乐彩 · 查询对照与延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f7fafc;
+            color: #1a2e3b;
+            line-height: 1.7;
+            padding: 24px 16px 40px;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        /* ——— 首页横幅 ——— */
+        .hero {
+            background: linear-gradient(135deg, #0d4f5a 0%, #1e7b84 100%);
+            color: white;
+            border-radius: 28px 28px 28px 28px;
+            padding: 36px 28px 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 20px rgba(13, 79, 90, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "✦";
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 140px;
+            opacity: 0.08;
+            color: #b8e6e9;
+            pointer-events: none;
+            transform: rotate(12deg);
+        }
+
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .hero .subhead {
+            font-size: 1rem;
+            font-weight: 300;
+            opacity: 0.88;
+            max-width: 75%;
+            background: rgba(255,255,255,0.12);
+            padding: 6px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 0.98rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* ——— 背景说明卡片 ——— */
+        .background-card {
+            background-color: white;
+            border-radius: 24px;
+            padding: 28px 24px;
+            margin-bottom: 26px;
+            box-shadow: 0 4px 12px rgba(0,40,50,0.06);
+            border-left: 6px solid #1e7b84;
+        }
+
+        .background-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #0f5b65;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .background-card h2::before {
+            content: "⊹";
+            font-size: 1.6rem;
+            color: #2f9eaa;
+        }
+
+        .background-card p {
+            color: #2c4050;
+            font-size: 0.97rem;
+            margin-bottom: 10px;
+        }
+
+        .background-card .tag {
+            display: inline-block;
+            background: #e2f0f2;
+            color: #115e68;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            margin-top: 6px;
+        }
+
+        /* ——— 网格卡片（三段式） ——— */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        @media (min-width: 560px) {
+            .grid-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-cards .card:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 22px 20px;
+            box-shadow: 0 4px 10px rgba(0,45,50,0.05);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            border: 1px solid #dce9ec;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(14, 80, 90, 0.10);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #0f5b65;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #b4d9de;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            color: #2a3e4b;
+            margin: 12px 0 6px;
+        }
+
+        .card .quiet-link {
+            color: #1b7a86;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px dotted #7dbdc7;
+        }
+
+        .card .quiet-link:hover {
+            border-bottom: 2px solid #0f5b65;
+        }
+
+        /* ——— 页尾访问提示 ——— */
+        .footer-note {
+            background: #e5f0f3;
+            border-radius: 30px;
+            padding: 28px 24px 24px;
+            text-align: center;
+            margin-top: 16px;
+            border: 1px solid #c7dce1;
+        }
+
+        .footer-note p {
+            font-size: 0.95rem;
+            color: #1f404a;
+            margin-bottom: 10px;
+        }
+
+        .footer-note .main-link {
+            display: inline-block;
+            background: #0d4f5a;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(13, 79, 90, 0.20);
+            transition: background 0.15s, transform 0.1s;
+            margin-top: 8px;
+        }
+
+        .footer-note .main-link:hover {
+            background: #145e6a;
+            transform: scale(1.01);
+        }
+
+        .footer-note small {
+            display: block;
+            margin-top: 18px;
+            color: #4b6b74;
+            font-size: 0.8rem;
+            border-top: 1px solid #bed3d9;
+            padding-top: 14px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dotted #b9d2d8;
+            margin: 32px 0 18px;
+            opacity: 0.5;
+        }
+
+        /* 移动端友好微调 */
+        @media (max-width: 420px) {
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .hero .subhead {
+                max-width: 100%;
+                font-size: 0.88rem;
+            }
+            .hero p {
+                max-width: 100%;
+            }
+            .background-card {
+                padding: 20px 18px;
+            }
+        }
+
+        /* 点缀小元素 */
+        .dot-accent {
+            color: #1e7b84;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 首页横幅 hero -->
+    <header class="hero">
+        <h1>乐彩 · 查览之间</h1>
+        <span class="subhead">对照 · 延伸 · 日常查询</span>
+        <p>从一组号码到一段索引，从一次对照到一类背景。<br>这里提供的是围绕<span style="font-weight:500;">乐彩</span>结构的信息梳理，方便随时翻阅、比对与理解。</p>
+    </header>
+
+    <!-- 背景说明 -->
+    <section class="background-card">
+        <h2>专题背景</h2>
+        <p>为什么需要一份“查询型”介绍页？在日常浏览中，许多人习惯在多个页面间来回切换、对照数据或术语。本页将常见的参考需求整合为三类：基础索引、场景对照、延伸阅读。无论你是初次接触还是想回顾某些细节，都能在卡片分区里找到对应的内容轮廓。</p>
+        <p>所有信息均来源于公开可查的资料与通用知识，不涉及任何投注引导或数值预测。我们相信清晰的分类能帮助读者更有效率地整理自己的关注点。</p>
+        <span class="tag">📋 非预测 · 非引导 · 仅做信息对照</span>
+    </section>
+
+    <!-- 三段自然介绍：网格卡片 -->
+    <div class="grid-cards">
+
+        <article class="card">
+            <h3>① 基础索引</h3>
+            <p>包含常见术语、结构名称与对照速览。如果你在别处看到某个说法，想快速了解其大致位置或关联概念，这一栏可以当作初步的查询起点。</p>
+            <p>例如：区间分布、和值参考、出现频率等常见的描述方式，均可在<a href="https://root-lecai.com" class="quiet-link">乐彩</a>的专题信息页找到对应的说明模块。</p>
+        </article>
+
+        <article class="card">
+            <h3>② 场景对照</h3>
+            <p>针对不同的使用场景——日常回顾、横向比对、知识点串联——提供差异化的查看思路。比如从“历史数据对照”到“结构拆解”，再到“相似特征归纳”，每一步都可以基于同一套索引体系来回切换。</p>
+            <p>场景本身不包含操作建议，只展示信息组织的方式，让读者自行选择适合自己的查看顺序。</p>
+        </article>
+
+        <article class="card">
+            <h3>③ 延伸阅读</h3>
+            <p>当查询告一段落，常常会衍生出新的好奇：“某个参数在其他语境下怎么理解？”“有没有更系统的分类？”延伸阅读板块收集了与<span style="color:#115e68;font-weight:500;">乐彩</span>内容结构相关的背景资料、分类逻辑说明以及常见的对照维度，方便继续深入。</p>
+            <p>这部分同样保持客观，不作价值判断，只呈现多样的信息层次。</p>
+        </article>
+
+    </div>
+
+    <!-- FAQ 摘要 / 补充提示 -->
+    <div style="background:#ffffff; border-radius:20px; padding:20px 22px; margin-bottom:22px; border:1px solid #d3e4e8;">
+        <h3 style="font-size:1rem; font-weight:500; color:#0d4f5a; margin-bottom:10px;">❖ 常见查询思路摘要</h3>
+        <ul style="list-style: none; padding-left: 0;">
+            <li style="padding:5px 0; border-bottom:1px dashed #d2e2e6; display: flex; gap:10px;"><span style="color:#1e7b84;">→</span> 先确定想要对照的维度（如结构位置、区间、频次）</li>
+            <li style="padding:5px 0; border-bottom:1px dashed #d2e2e6; display: flex; gap:10px;"><span style="color:#1e7b84;">→</span> 在基础索引中找到对应分类名称</li>
+            <li style="padding:5px 0; border-bottom:1px dashed #d2e2e6; display: flex; gap:10px;"><span style="color:#1e7b84;">→</span> 利用场景对照决定查看顺序（纵向/横向）</li>
+            <li style="padding:5px 0; display: flex; gap:10px;"><span style="color:#1e7b84;">→</span> 阅读延伸内容，补充背景理解</li>
+        </ul>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <footer class="footer-note">
+        <p>如果想直接查看完整的信息索引与分类结构，<br>可以前往 <a href="https://root-lecai.com" style="color:#0d4f5a; font-weight:600; text-decoration:underline; text-underline-offset:3px;">乐彩</a> 的专题页面，那里整理了更细致的对照表与分类说明。</p>
+        <a href="https://root-lecai.com" class="main-link">乐彩</a>
+        <small>本页仅做信息展示与查询指引，不含任何投注推荐或数值引导。<br>所有内容均基于公开资料整理，仅供日常参考。</small>
+    </footer>
+
+    <hr>
+    <p style="text-align:center; font-size:0.75rem; color:#6c8f99; letter-spacing:0.3px;">✦ 查询灵感 · 对照延伸 ✦</p>
+
+</div>
+</body>
+</html>
