@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>中超直播 · 专题介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f6fafb;
+            color: #1e2d3a;
+            line-height: 1.6;
+            padding: 0 1rem;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2.5rem 0 3rem;
+        }
+
+        /* ----- hero 横幅模块（杂志封面感） ----- */
+        .hero {
+            background: linear-gradient(145deg, #0b3340 0%, #1a5e6e 60%, #29808b 100%);
+            border-radius: 2rem 2rem 1rem 1rem;
+            padding: 3.2rem 2rem 2.8rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 12px 28px -8px rgba(6, 60, 70, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(99, 210, 210, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #f1fcfb;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0 0.3em;
+            border-radius: 6px;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero .sub {
+            color: #cde8ec;
+            font-size: 1.05rem;
+            margin-top: 1rem;
+            border-left: 3px solid #3db9c4;
+            padding-left: 1.2rem;
+            max-width: 580px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 背景说明条 —— 类似杂志编者按 */
+        .background-note {
+            background: #e4f0f2;
+            border-radius: 1.6rem;
+            padding: 1.6rem 2rem;
+            margin-bottom: 2.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
+            border: 1px solid #c7dbdf;
+            box-shadow: 0 4px 10px rgba(0,40,50,0.04);
+        }
+
+        .background-note .label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #1f6d7a;
+            background: #d0e6ea;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .background-note p {
+            color: #1f4350;
+            font-size: 0.98rem;
+            flex: 1 1 300px;
+        }
+
+        /* 三段式介绍 —— 网格卡片布局 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.4rem 0 2.8rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 1.6rem;
+            padding: 1.8rem 1.5rem 2rem;
+            box-shadow: 0 4px 16px rgba(0, 45, 50, 0.06);
+            transition: all 0.15s;
+            border: 1px solid #e2edf0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(8, 80, 90, 0.08);
+            border-color: #99cdd6;
+        }
+
+        .card .icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.2rem;
+            display: inline-block;
+            background: #d9eef2;
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            border-radius: 14px;
+            color: #1c6a77;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0d3a44;
+            margin: 0.6rem 0 0.4rem;
+        }
+
+        .card p {
+            font-size: 0.96rem;
+            color: #2b4d58;
+            margin-top: 0.2rem;
+            flex: 1;
+        }
+
+        .card .meta-tag {
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            color: #3e7b86;
+            border-top: 1px dashed #c6dee3;
+            padding-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card .meta-tag .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2d97a6;
+            display: inline-block;
+        }
+
+        /* FAQ 摘要 —— 紧凑网格 */
+        .faq-digest {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin: 2.8rem 0 2.4rem;
+            background: #f0f7f9;
+            border-radius: 1.6rem;
+            padding: 1.8rem 1.8rem 2rem;
+        }
+
+        .faq-digest h4 {
+            grid-column: 1 / -1;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #12515f;
+            letter-spacing: 0.01em;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .faq-digest h4 small {
+            font-weight: 400;
+            color: #2f7d8a;
+            font-size: 0.85rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
+            border-left: 4px solid #3ba9b6;
+            box-shadow: 0 2px 8px rgba(20,80,90,0.04);
+        }
+
+        .faq-item .q {
+            font-weight: 600;
+            color: #0c4956;
+            font-size: 0.94rem;
+        }
+
+        .faq-item .a {
+            font-size: 0.9rem;
+            color: #2a5d69;
+            margin-top: 0.3rem;
+        }
+
+        /* 页尾访问提示 —— 杂志专题结语 */
+        .page-footer {
+            margin-top: 2.8rem;
+            padding: 2rem 1.8rem;
+            background: #e3f0f3;
+            border-radius: 2rem;
+            text-align: center;
+            border: 1px solid #c2d9dd;
+        }
+
+        .page-footer .footer-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #114b58;
+            letter-spacing: 0.02em;
+        }
+
+        .page-footer .footer-link-sentence {
+            margin-top: 0.6rem;
+            font-size: 1.05rem;
+            color: #1f5563;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-footer .footer-link-sentence a {
+            color: #0f6879;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #3faebd;
+            padding-bottom: 0.1rem;
+            transition: border-color 0.2s;
+        }
+
+        .page-footer .footer-link-sentence a:hover {
+            border-color: #b1e2ea;
+            color: #0b4f5e;
+        }
+
+        .page-footer .small-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #4a7f8b;
+        }
+
+        .separator {
+            width: 40px;
+            height: 2px;
+            background: #5fb3c0;
+            margin: 0.2rem auto 0.8rem;
+            border-radius: 4px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 2rem 1.2rem 2rem;
+                border-radius: 1.6rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero .sub {
+                font-size: 0.95rem;
+                padding-left: 1rem;
+            }
+
+            .card-grid {
+                gap: 1rem;
+            }
+
+            .card {
+                padding: 1.4rem 1.2rem 1.6rem;
+            }
+
+            .faq-digest {
+                padding: 1.2rem;
+            }
+
+            .page-footer {
+                padding: 1.6rem 1.2rem;
+            }
+
+            .background-note {
+                padding: 1.2rem 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- 首页横幅 hero -->
+        <div class="hero">
+            <h1><span>⚽ 中超直播</span> · 专题</h1>
+            <div class="sub">专注中国足球超级联赛的信息服务与赛事动态，为球迷提供清晰、可靠的观赛参考。</div>
+        </div>
+
+        <!-- 背景说明：站点介绍与可信说明 -->
+        <div class="background-note">
+            <span class="label">编者按</span>
+            <p>中超直播（zh-csl.com）是一个长期关注中超联赛的非官方信息聚合站点。本站以整理公开赛事数据、赛程预告、球队近况及观赛渠道为主，不提供任何盗播或非法链接。所有引用的赛程、积分等信息均来自中国足协官方及合规媒体，力求客观中立，帮助球迷快速掌握联赛脉络。</p>
+        </div>
+
+        <!-- 三段自然介绍（杂志卡片风格） -->
+        <div class="card-grid">
+            <div class="card">
+                <div class="icon">📋</div>
+                <h3>赛程与数据</h3>
+                <p>每轮中超赛前发布对阵时间、场地及历史交锋记录。赛后更新积分榜、射手榜及红黄牌统计，数据来源清晰可溯。页面结构简洁，适合赛前快速浏览。</p>
+                <div class="meta-tag"><span class="dot"></span> 信息密度适中</div>
+            </div>
+            <div class="card">
+                <div class="icon">🏟️</div>
+                <h3>球队与现场</h3>
+                <p>收录中超16支球队的主场信息、阵容变动及球迷文化侧记。通过公开报道编译球队近况，不渲染对立情绪，强调足球运动的竞技与社区属性。</p>
+                <div class="meta-tag"><span class="dot"></span> 客观 · 非官方</div>
+            </div>
+            <div class="card">
+                <div class="icon">📡</div>
+                <h3>观赛指引</h3>
+                <p>汇总每轮中超的电视及网络直播平台（央视、地方体育频道、咪咕、腾讯等），并提供官方版权说明。帮助用户选择合法、稳定的观赛方式，尊重赛事版权。</p>
+                <div class="meta-tag"><span class="dot"></span> 正版渠道优先</div>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 —— 轻量问答，增加信息厚度 -->
+        <div class="faq-digest">
+            <h4>❓ 常见要点 <small>基于站点内容提炼</small></h4>
+            <div class="faq-item">
+                <div class="q">中超直播是否提供视频信号？</div>
+                <div class="a">不提供。本站仅做赛程、数据及直播平台的信息整理，用户需自行前往官方或授权平台观看比赛。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">数据更新频率如何？</div>
+                <div class="a">通常每轮比赛结束后24小时内更新积分、射手等核心数据。赛程表则在官方发布后同步调整。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">站点与中超公司有关系吗？</div>
+                <div class="a">无直接关联。本站是球迷社区维护的信息站，所有内容均以公开资料为基础，不具官方立场。</div>
+            </div>
+        </div>
+
+        <!-- 页尾访问提示 —— 自然嵌入中超直播链接 -->
+        <div class="page-footer">
+            <div class="footer-title">— 更深入了解中超联赛 —</div>
+            <div class="separator"></div>
+            <div class="footer-link-sentence">
+                若你需要查询某轮完整赛程、球队名单或直播平台分布，
+                可直接访问 <a href="https://zh-csl.com">中超直播</a>，
+                站点采用卡片式信息布局，便于移动端浏览。
+            </div>
+            <div class="small-note">专题内容仅供交流参考，请通过正版渠道观看赛事。</div>
+        </div>
+    </div>
+    <!-- 创作种子: 33aa11b66f12137d（仅用于变化） -->
+</body>
+</html>
